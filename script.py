@@ -36,18 +36,86 @@
 #find length of longest num and write that many dashes at bottom of the problem
 
 #-----------------------------------------------------
+import numpy as np
+
+first_ttl = 0
+second_ttl = 0
+len_first = []
+len_third = []
+first_arr = []
+third_arr = []
 problem_arr = []
-problems = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
+calc_arr = []
+prob_item_lengths = []
+problem = []
 
 
-#define the arithmetic arranger function
+
 def arithmetic_arranger(problems):
-  for i in problems:
-    print(print(problems[i]))
-    i+=1
-#   arranged_problems = 'num'+' '+'operator'+' '+'num'
+    for x in problems:
+        #separate each item in problems into a number, operator, and number
+        problem.append(str.split(x))
 
-#   return arranged_problems
+    #separating the items into different arrays
+    for x in range(len(problem)):
+        # 1st Operand, Operator, 2nd Operand
+        np.array(first_arr.append(problem[x][0]))
+        np.array(third_arr.append(problem[x][2]))
 
-# print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]))
+    #one array of all values given... for later
+    problem_arr = np.concatenate((first_arr, third_arr))
+        
+    #measuring the length for each item in the first index of 'poblem' 
+    for x in range(len(problem)):
+        # 1st Operand, Operator, 2nd Operand
+        np.array(len_first.append(len(problem[x][0])))      
+        np.array(len_third.append(len(problem[x][2])))
+
+    #one array to measure the length of all given values
+    problem_item_lengths = np.concatenate((len_first, len_third))
+
+
+
+
+   #Error handling
+
+   # if any digit is larger than 4 digit -> error
+    for i in problem_item_lengths:
+        if problem_item_lengths[i] > 4:
+            print('no digit length over 4 is allowed, please enter equations again')
+            return
+        else:
+            continue
+
+   # the operator must be a + or a -
+   # why won't they register incorrect if I use a 'or' operator between the + and - ?
+    for i in range(len(problem)):
+        if problem[i][1] == '+':
+            continue
+        elif problem[i][1] == '-':
+            continue
+        else:
+            print('only the operators + and - are allowed. Please enter equations again')
+            return
+
+   # the numbers must only be digits
+    for i in range(len(problem_arr)):
+        if (problem_arr[i].isnumeric):
+            continue
+        else:
+            print('only numeric values of four whole digits are allowed. Please enter equations again')
+            return
+
+
+
+   #Return
+
+   # single space between operator and bottom operand
+   # numbers should be right aligned
+   # four spaces between each problem
+   # The dashes will elongate dynamically according to the length of the operands
+
+    # return arranged_problems
+
+print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]))
 
